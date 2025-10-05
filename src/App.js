@@ -10,6 +10,12 @@ function App() {
       setExpression('');
       setResult('');
     } else if (value === '=') {
+      if (!expression || /[+\-*/]$/.test(expression)) {
+      // If the expression is empty or ends with an operator, show error
+      setResult('Error');
+      return;
+    }
+
       try {
         const evalResult = new Function(`return ${expression}`)();
         setResult(String(evalResult));
